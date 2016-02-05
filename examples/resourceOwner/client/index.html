@@ -11,7 +11,14 @@
 <template name="authorize">
     <p>The following steps represent the steps that are necessary to properly negotiate an oauth2 token. While these
     steps work on this site, this site is for testing and demo purposes only. Do not use this configuration in production.</p>
+    <p>You'll know if everything is working if you can get to Step 6 and the user ids match.</p>
     <hr />
+
+    <h2>Step 0 - Add an an authorized client</h2>
+    <p>
+        Look into server/index.js for how to add a client. This client must exist, be active, and it's redirectUri
+        must match the redirect_uri provided in the URL. If not, the creation of the authorization code in step 4 will fail.
+    </p>
 
     <h2>Step 1 - Goto URL with appropriate params.</h2>
     {{#unless isUrlParamsValid }}

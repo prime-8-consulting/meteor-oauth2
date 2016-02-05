@@ -1,10 +1,16 @@
-This is the meteor server that will serve as a repository for user credentials. Similarly how Google or Facebook would
-be an authentication repository for their users. This project is intended to be used in conjunction ith the
-resourceServer example which will use this project to perform oauth2 requests.
+This example is used to test the meteor-oauth2-server package.
+It can also be used as a demonstration of how to integrate oauth2
+into your own application. The code is well documented, so it should
+be fairly easy to follow and implement your own solution. Pay
+particular attention to server/rest.js and client/index.js for how
+to create authorization codes and use access tokens in a rest service.
 
 Starting:
 ``` sh
 meteor --port 3100
 ```
-This will start this meteor project on http://localhost:3100
+The reason we are using a specific port here is to
+1) Not interfere with your running instance of meteor.
+2) Work well with the resourceServer example as it assumes the auth server
+will be hosted at localhost:3100
 

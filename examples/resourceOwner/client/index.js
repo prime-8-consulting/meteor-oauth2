@@ -1,7 +1,9 @@
+// reactive vars for our UI.
 var grantResult = new ReactiveVar(null);
 var tokenResult = new ReactiveVar(null);
 var getUserIdResult = new ReactiveVar(null);
 
+// subscribe to our authorization codes and refresh tokens.
 Template.authorize.onCreated(function() {
     oAuth2Server.subscribeTo.authCode();
     oAuth2Server.subscribeTo.refreshTokens();
@@ -33,14 +35,21 @@ Template.authorize.helpers({
 });
 
 Template.authorize.events({
+    // Step 3.
+    // user clicks the authorize button.
     'click button.authorize': function() {
         console.log('Authorize button clicked.');
         var urlParams = getUrlParams();
 
+        // create an authorization code for the provided client.
         oAuth2Server.callMethod.authCodeGrant(urlParams.client_id, urlParams.redirect_uri, urlParams.response_type, function(err, result) {
             console.log(err, result);
+
+            // Step 4
+            // give the UI something to display.
             grantResult.set(result);
 
+            // Step 5.
             // we have an authorization code. Now get a token.
             if (result.success) {
                 console.log('POST');
@@ -60,6 +69,7 @@ Template.authorize.events({
                     function(err, result) {
                         tokenResult.set(result.data);
 
+                        // Step 6.
                         // we have an access token. Get the user from the REST service.
                         HTTP.get(
                             Meteor.absoluteUrl('/api/getUserId'),
