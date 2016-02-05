@@ -40,6 +40,34 @@ app.all('/oauth/token', oAuth2Server.oauthserver.grant());
 WebApp.rawConnectHandlers.use(app);
 
 
+/////////////////////
+// Configure really basic identity service
+////////////////////
+JsonRoutes.Middleware.use(
+    '/oauth/getIdentity',
+    oAuth2Server.oauthserver.authorise()
+);
+
+JsonRoutes.add('get', '/oauth/getIdentity', function(req, res, next) {
+    console.log('GET /oauth/getIdentity');
+
+    var accessTokenStr = (req.params && req.params.access_token) || (req.query && req.query.access_token);
+    var accessToken = oAuth2Server.collections.accessToken.findOne({accessToken: accessTokenStr});
+    var user = Meteor.users.findOne(accessToken.userId);
+
+    JsonRoutes.sendResult(
+        res,
+        {
+            data: {
+                id: user._id,
+                email: user.emails[0].address
+            }
+        }
+    );
+});
+
+
+
 ////////////////////
 // Meteor publish.
 ///////////////////
@@ -49,7 +77,10 @@ Meteor.publish(oAuth2Server.pubSubNames.authCodes, function() {
     }
 
     return oAuth2Server.collections.authCode.find({
-        userId: this.userId
+        userId: this.userId,
+        expires: {
+            $gt: new Date()
+        }
     });
 });
 
@@ -59,7 +90,10 @@ Meteor.publish(oAuth2Server.pubSubNames.refreshTokens, function() {
     }
 
     return oAuth2Server.collections.refreshToken.find({
-        userId: this.userId
+        userId: this.userId,
+        expires: {
+            $gt: new Date()
+        }
     });
 });
 
@@ -67,11 +101,17 @@ Meteor.publish(oAuth2Server.pubSubNames.refreshTokens, function() {
 // configure the meteor methods.
 //////////////
 var methods = {};
-methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri, responseType) {
+methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri, responseType, scope, state) {
     // validate parameters.
     check(clientId, String);
     check(redirectUri, String);
     check(responseType, String);
+    check(scope, Match.Optional(Match.OneOf(null, [String])));
+    check(state, Match.Optional(Match.OneOf(null, String)));
+
+    if (!scope) {
+        scope = [];
+    }
 
     // validate the user is authenticated.
     var userId = this.userId;
@@ -94,7 +134,7 @@ methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri
     // Further, we are also running this in a synchronous manner. Enjoy! :)
 
     // create check callback that returns the user.
-    var checkCallback = function(req, callback) {
+    var checkCallback = function (req, callback) {
         callback(
             null, // error.
             true, // user authorizes the code creation.
@@ -110,7 +150,7 @@ methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri
     var authCodeGrantFn = oAuth2Server.oauthserver.authCodeGrant(checkCallback);
 
     // make the grant function run synchronously.
-    var authCodeGrantFnSync = Async.wrap(function(done) {
+    var authCodeGrantFnSync = Async.wrap(function (done) {
         // the return object.
         var response = {
             success: false,
@@ -135,7 +175,7 @@ methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri
 
         // listen for redirect calls.
         var res = mockApp.response;
-        res.redirect = function(uri) {
+        res.redirect = function (uri) {
             response.redirectToUri = uri;
 
             // we have what we need, trigger the done function with the response data.
@@ -143,7 +183,7 @@ methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri
         };
 
         // listen for errors.
-        var next = function(err) {
+        var next = function (err) {
             response.error = err;
 
             // we have what we need, trigger the done function with the response data.
@@ -157,6 +197,7 @@ methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri
     // run the auth code grant function in a synchronous manner.
     var result = authCodeGrantFnSync();
 
+
     // update the success flag.
     result.success = !result.error && !(/[?&]error=/g).test(result.redirectToUri);
 
@@ -165,6 +206,11 @@ methods[oAuth2Server.methodNames.authCodeGrant] = function(clientId, redirectUri
         var match = result.redirectToUri.match(/[?&]code=([0-9a-f]+)/);
         if (match.length > 1) {
             result.authorizationCode = match[1];
+        }
+
+        // add the state to the url.
+        if (state) {
+            result.redirectToUri += '&state=' + state;
         }
     }
 //console.log(result);

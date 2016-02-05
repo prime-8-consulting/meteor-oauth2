@@ -54,7 +54,7 @@ oAuth2Server - Exported so all code in meteor can access the functionality.
 
    Example:
    ```javascript
-   oAuth2Server.callMethod.authCodeGrant(client_id, redirect_uri, response_type, function(err, authCodeGrantResult) {
+   oAuth2Server.callMethod.authCodeGrant(client_id, redirect_uri, response_type, scope, state, function(err, authCodeGrantResult) {
        // see below for a description of authCodeGrantResult
    });
    ```

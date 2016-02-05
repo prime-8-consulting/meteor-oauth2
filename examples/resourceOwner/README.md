@@ -9,6 +9,8 @@ Starting:
 ``` sh
 meteor --port 3100
 ```
+After it is started, goto http://localhost:3100 and walk through the steps.
+
 The reason we are using a specific port here is to
 1) Not interfere with your running instance of meteor.
 2) Work well with the resourceServer example as it assumes the auth server

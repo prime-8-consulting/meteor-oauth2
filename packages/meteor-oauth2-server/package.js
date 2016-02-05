@@ -11,6 +11,7 @@ Package.onUse(function(api) {
     api.use('webapp', 'server');
     api.use('check', 'server');
     api.use('meteorhacks:async', 'server');
+    api.use('simple:json-routes', 'server');
 
     api.addFiles('common.js', ['client', 'server']);
     api.addFiles('meteor-model.js', 'server');

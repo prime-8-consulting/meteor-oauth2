@@ -1,0 +1,15 @@
+<head>
+    <title>resourceServer</title>
+</head>
+
+<body>
+    <h1>Welcome to resourceServer!</h1>
+    {{> main}}
+</body>
+
+<template name="main">
+    {{> loginButtons}}
+
+    <p>For the sake of convience while you experiment, you can reset the MeteorOAuth2Server configuration.</p>
+    <button class="resetServiceConfiguration">Reset service configuration</button>
+</template>

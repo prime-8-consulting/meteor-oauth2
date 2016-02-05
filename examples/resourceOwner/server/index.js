@@ -5,10 +5,10 @@
 function initializeClients() {
     var clients = [
         {
-            clientId: 'resourceServerClient',
-            active: true,
-            redirectUri: 'http://localhost:3101',
-            clientSecret: '12345'
+            clientId: 'resourceServerClient', // unique identifier.
+            active: true, // whether this client is enabled or not.
+            redirectUri: 'http://localhost:3200/_oauth/MeteorOAuth2Server', // provided by the client.
+            clientSecret: '12345' // in production, this should be a randomly generated value. Random.secret() is a good choice.
         }
     ];
 

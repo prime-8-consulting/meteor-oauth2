@@ -1,48 +1,68 @@
 var OAuth = Package.oauth.OAuth;
-var urlUtil = Npm.require('url');
+var Random = Package.random.Random;
 
-OAuth.registerService('meteorServer', 2, null, function(query) {
-    var response = getTokenResponse(query);
+OAuth.registerService(MeteorOAuth2.serviceName, 2, null, function(query) {
+    console.log('query', query);
+    var config = ServiceConfiguration.configurations.findOne({
+        service: MeteorOAuth2.serviceName
+    });
+
+    if (!config) {
+        throw new ServiceConfiguration.ConfigError("Service not configured");
+    }
+
+    if (!config.baseUrl) {
+        throw new ServiceConfiguration.ConfigError("Service found but it does not have a baseUrl configured.");
+    }
+
+    if (!config.loginUrl) {
+        throw new ServiceConfiguration.ConfigError("Service found but it does not have a loginUrl configured.");
+    }
+
+    var response = getTokenResponse(query, config);
     var accessToken = response.accessToken;
-    var characters = getCharacters(accessToken);
+    var identity = getIdentity(accessToken, config);
 
     var serviceData = {
         id: Random.id(),
         accessToken: accessToken,
-        expiresAt: (+new Date) + (1000 * response.expiresIn)
+        expiresAt: (+new Date) + (1000 * response.expiresIn),
+        identity: identity
     };
 
     return {
         serviceData: serviceData,
         options: {
-            profile: characters
+            profile: {
+                name: identity.email
+            }
         }
     };
 });
 
-var isJSON = function (str) {
+var isJSON = function(str) {
     try {
         JSON.parse(str);
         return true;
     } catch (e) {
         return false;
     }
-}
+};
 
-var getTokenResponse = function (query) {
-    var config = ServiceConfiguration.configurations.findOne({service: 'meteorServer'});
-
-    if (!config)
-        throw new ServiceConfiguration.ConfigError("Service not configured");
-
+var getTokenResponse = function(query, config) {
     var responseContent;
     try {
-        responseContent = Meteor.http.post(
-            "https://us.battle.net/oauth/token?grant_type=authorization_code" +
-            "&code=" + query.code +
-            "&client_id=" + config.clientId +
-            "&client_secret=" + OAuth.openSecret(config.secret) +
-            "&redirect_uri=" + encodeURIComponent(Meteor.absoluteUrl("_oauth/battlenet?close"))
+        responseContent = HTTP.post(
+            config.baseUrl + '/oauth/token',
+            {
+                params: {
+                    grant_type: 'authorization_code',
+                    code: query.code,
+                    client_id: config.clientId,
+                    client_secret: OAuth.openSecret(config.secret),
+                    redirect_uri: OAuth._redirectUri(MeteorOAuth2.serviceName, config)
+                }
+            }
         ).content;
     } catch (err) {
         throw new Error("Failed to complete OAuth handshake\n\n" + err.message);
@@ -68,16 +88,22 @@ var getTokenResponse = function (query) {
     };
 };
 
-var getCharacters = function (accessToken) {
+var getIdentity = function(accessToken, config) {
+    var fetchUrl = config.baseUrl + '/oauth/getIdentity';
     try {
-        return Meteor.http.get("https://us.api.battle.net/wow/user/characters", {
-            params: { access_token: accessToken } }
+        return HTTP.get(
+            fetchUrl,
+            {
+                params: {
+                    access_token: accessToken
+                }
+            }
         ).data;
     } catch (err) {
-        throw new Error("Failed to fetch identity from Battlenet. " + err.message);
+        throw new Error('Failed to fetch identity from '+ fetchUrl +'. ' + err.message);
     }
 };
 
-Battlenet.retrieveCredential = function(credentialToken, credentialSecret) {
+MeteorOAuth2.retrieveCredential = function(credentialToken, credentialSecret) {
     return OAuth.retrieveCredential(credentialToken, credentialSecret);
 };

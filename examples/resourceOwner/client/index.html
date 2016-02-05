@@ -24,7 +24,7 @@
     {{#unless isUrlParamsValid }}
         <p>The URL params are not set in order to authorize an oauth2 token.</p>
         <p>The following link will simulate arriving to this page from another site that wishes to authenticate with oauth2.</p>
-        <a href="/?client_id=resourceServerClient&redirect_uri=http://localhost:3101&response_type=code">Simulate proper link.</a>
+        <a href="/?client_id=resourceServerClient&redirect_uri=http://localhost:3200/_oauth/MeteorOAuth2Server&response_type=code">Simulate proper link.</a>
     {{/unless}}
 
     {{#if isUrlParamsValid}}
@@ -80,45 +80,50 @@
                     </tr>
                 </table>
 
-                <h2>Step 5 - /oauth/token result</h2>
-                <p>
-                    Using the authorizationCode, we post back to the server to request a token. This is the token you'd use to run REST calls and alike.
-                    This step should be performed by the server we redirect to in step 2. So there is server to server communication. This example is only
-                    for testing purposes.
-                </p>
-                <table border="1" cellpadding="5" cellspacing="0">
-                    <tr>
-                        <td>access_token</td>
-                        <td>{{ tokenResult.access_token }}</td>
-                    </tr>
-                    <tr>
-                        <td>expires_in</td>
-                        <td>{{ tokenResult.expires_in }}</td>
-                    </tr>
-                    <tr>
-                        <td>token_type</td>
-                        <td>{{ tokenResult.token_type }}</td>
-                    </tr>
-                </table>
 
-                <h2>Step 6 - fetch userId from /api/getUserId</h2>
-                <p>
-                    Using the newly acquired access token, we retrieve the userId associated with the access token.
-                </p>
-                <table border="1" cellpadding="5" cellspacing="0">
-                    <tr>
-                        <td>expected id</td>
-                        <td>{{ currentUser._id }}</td>
-                        <td>This was given to us by Meteor.</td>
-                    </tr>
-                    <tr>
-                        <td>actual id</td>
-                        <td>{{ getUserIdResult }}</td>
-                        <td>This was retrieved via REST using the access token.</td>
-                    </tr>
-                </table>
+                <p>This is where the user's interaction generally stops. For testing purposes, now that you have an authorization code, you can test service by retrieving an access token.</p>
+                <button class="testLocalTokens">Test Local Tokens</button>
+
+                {{#if tokenResult}}
+                    <h2>Step 5 - /oauth/token result</h2>
+                    <p>
+                        Using the authorizationCode, we post back to the server to request a token. This is the token you'd use to run REST calls and alike.
+                        This step should be performed by the server we redirect to in step 2. So there is server to server communication. This example is only
+                        for testing purposes.
+                    </p>
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <td>access_token</td>
+                            <td>{{ tokenResult.access_token }}</td>
+                        </tr>
+                        <tr>
+                            <td>expires_in</td>
+                            <td>{{ tokenResult.expires_in }}</td>
+                        </tr>
+                        <tr>
+                            <td>token_type</td>
+                            <td>{{ tokenResult.token_type }}</td>
+                        </tr>
+                    </table>
+
+                    <h2>Step 6 - fetch userId from /api/getUserId</h2>
+                    <p>
+                        Using the newly acquired access token, we retrieve the userId associated with the access token.
+                    </p>
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <td>expected id</td>
+                            <td>{{ currentUser._id }}</td>
+                            <td>This was given to us by Meteor.</td>
+                        </tr>
+                        <tr>
+                            <td>actual id</td>
+                            <td>{{ getUserIdResult }}</td>
+                            <td>This was retrieved via REST using the access token.</td>
+                        </tr>
+                    </table>
+                {{/if}}
             {{/if}}
-
         {{/if}}
     {{/if}}
 
