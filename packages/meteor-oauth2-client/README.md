@@ -35,9 +35,9 @@ ServiceConfiguration.configurations.insert({
   service: 'MeteorOAuth2Server',
   clientId: '{ your client id, provided by resource owner }',
   scope: [], // whatever scope the resource owner supports. By default, ['email'] will be used.
-  secret: '{ your app's secret, provided by resource owner }',
-  baseUrl: '{ the base url of the resource owner's site. }',
-  loginUrl: '{ the login url of the resource owner's site. }'
+  secret: '{ your app\'s secret, provided by resource owner }',
+  baseUrl: '{ the base url of the resource owner\'s site. }',
+  loginUrl: '{ the login url of the resource owner\'s site. }'
 });
 ```
 
