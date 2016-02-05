@@ -70,5 +70,10 @@ oAuth2Server - Exported so all code in meteor can access the functionality.
     ```
 
 ## Examples
+There is an example meteor application that demonstrates authentication from
+another meteor application.
+https://github.com/prime-8-consulting/meteor-oauth2/tree/master/examples
+
 Checkout the resourceOwner example application for a full example on how this
-package can and should be used.
+package can and should be used. Your can also run both examples side-by-side
+to watch the entire login workflow.
