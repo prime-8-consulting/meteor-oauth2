@@ -10,8 +10,8 @@ Package.onUse(function(api) {
 
     api.use('webapp', 'server');
     api.use('check', 'server');
-    api.use('meteorhacks:async', 'server');
-    api.use('simple:json-routes', 'server');
+    api.use('meteorhacks:async@1.0.0', 'server');
+    api.use('simple:json-routes@2.0.0', 'server');
 
     api.addFiles('common.js', ['client', 'server']);
     api.addFiles('meteor-model.js', 'server');
