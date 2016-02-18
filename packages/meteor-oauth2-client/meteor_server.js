@@ -24,7 +24,7 @@ OAuth.registerService(MeteorOAuth2.serviceName, 2, null, function(query) {
     var identity = getIdentity(accessToken, config);
 
     var serviceData = {
-        id: Random.id(),
+        id: identity.id,
         accessToken: accessToken,
         expiresAt: (+new Date) + (1000 * response.expiresIn),
         identity: identity
