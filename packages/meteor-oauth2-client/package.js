@@ -1,6 +1,6 @@
 Package.describe({
     name: 'prime8consulting:meteor-oauth2-client',
-    version: '0.0.1',
+    version: '0.0.2',
     summary: 'Add support for logging into a meteor site running the meteor-oauth2-server package.',
     git: 'https://github.com/prime-8-consulting/meteor-oauth2/packages/meteor-oauth2-client'
 });

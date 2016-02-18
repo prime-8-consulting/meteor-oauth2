@@ -27,7 +27,7 @@ htmljs@1.0.5
 http@1.1.1
 id-map@1.0.4
 jquery@1.11.4
-local-test:prime8consulting:meteor-oauth2-client@0.0.1
+local-test:prime8consulting:meteor-oauth2-client@0.0.2
 localstorage@1.0.5
 logging@1.0.8
 meteor@1.1.10
@@ -40,7 +40,7 @@ oauth@1.1.6
 oauth2@1.1.5
 observe-sequence@1.0.7
 ordered-dict@1.0.4
-prime8consulting:meteor-oauth2-client@0.0.1
+prime8consulting:meteor-oauth2-client@0.0.2
 promise@0.5.1
 random@1.0.5
 rate-limit@1.0.0
