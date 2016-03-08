@@ -54,7 +54,7 @@ oauth@1.1.6
 oauth2@1.1.5
 observe-sequence@1.0.7
 ordered-dict@1.0.4
-prime8consulting:meteor-oauth2-client@0.0.1
+prime8consulting:meteor-oauth2-client@0.0.2
 promise@0.5.1
 random@1.0.5
 rate-limit@1.0.0
