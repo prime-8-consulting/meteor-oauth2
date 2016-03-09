@@ -1,6 +1,6 @@
 This example is used to test and demonstrate the meteor-oauth2-client package
 and it's interaction with a meteor service running the
-meteor-oauth2-server package. This example expects that the contentOwner
+meteor-oauth2-server package. This example expects that the resourceServer
 application is also running. Check the example directory for details.
 
 Starting:
