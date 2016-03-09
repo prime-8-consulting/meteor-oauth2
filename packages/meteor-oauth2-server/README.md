@@ -2,7 +2,7 @@ Meteor OAuth2 Server
 ===
 Use your meteor application as an oauth2 server. This package will give the
 developer the tools necessary to get oauth2 running easily. Look at the
-resourceOwner example for a detailed demonstration on how to get things
+resourceServer example for a detailed demonstration on how to get things
 working.
 
 ## Installation
@@ -74,6 +74,6 @@ There is an example meteor application that demonstrates authentication from
 another meteor application.
 https://github.com/prime-8-consulting/meteor-oauth2/tree/master/examples
 
-Checkout the resourceOwner example application for a full example on how this
+Checkout the resourceServer example application for a full example on how this
 package can and should be used. Your can also run both examples side-by-side
 to watch the entire login workflow.
