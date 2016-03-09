@@ -6,7 +6,7 @@ application provide oauth services to other site, this should be your reference 
 application is also used as a test application to ensure the meteor-oauth2-server packae is
 functioning properly.
 
-## resourceServer
+## clientApplication
 This is an example of using the meteor-oauth2-client package. If you want users to authenticate from
 a meteor application that is running the meteor-oauthe2-server package, this should be your reference
 point. This application assumes you will have the resourceServer application running.
