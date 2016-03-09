@@ -5,7 +5,7 @@ This is the root repository of several meteor packages that give your applicatio
 Checkout the packages for the package source. The examples will be very helpful in understanding what you can do with these packages.
 
 =========================================
-#### OAuth Flow - Diagram 
+#### OAuth Flow - Diagram
 
 ![OAuthWebSequenceWithConfig](https://raw.githubusercontent.com/awatson1978/meteor-oauth2/readme-updates/documentation/OAuthWebSequenceWithConfig.png)
 
@@ -14,6 +14,11 @@ Checkout the packages for the package source. The examples will be very helpful 
 
 
 ````bash
+C1        Request Client ID             #
+C1.1      Generate Client ID            #
+C1.2      Return Client ID              #
+C2        Configure Client ID           #   
+
 1         Start App                     # Meteor.startup()
 1.1       Launch Browser                #
 1.1.1.    Request Login                 #
