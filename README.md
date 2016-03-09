@@ -14,29 +14,29 @@ Checkout the packages for the package source. The examples will be very helpful 
 
 
 ````bash
-C1        Request Client ID             #
-C1.1      Generate Client ID            #
-C1.2      Return Client ID              #
-C2        Configure Client ID           #   
+C1        Request Client ID              #
+C1.1      Generate Client ID             #
+C1.2      Return Client ID               #
+C2        Configure Client ID            #   
 
-1         Start App                     # Meteor.startup()
-1.1       Launch Browser                #
-1.1.1.    Request Login                 #
-1.1.1.1   Create Login Page             #
-1.1.1.2   Return to Login Page          #
-2         Enter Login Details           #
-2.1       Submit Login Details          #
-2.1.1     Authenticate User             #
-2.1.2     Redirect to Application       #
-3         Intercept Redirect            #
-4         Extract Auth Code             #
-5         Get Access Token              #
-5.1       Return Access/Refresh Token   #
-6         Save Refresh Token            #
-7         Get Data                      #
-7.1       Check Access Token            #
-7.2       Return Data                   #
-8         Rest of Business Logic        #
+A1         Start App                     # Meteor.startup()
+A1.1       Launch Browser                #
+A1.1.1.    Request Login                 #
+A1.1.1.1   Create Login Page             #
+A1.1.1.2   Return to Login Page          #
+A2         Enter Login Details           #
+A2.1       Submit Login Details          #
+A2.1.1     Authenticate User             #
+A2.1.2     Redirect to Application       #
+A3         Intercept Redirect            #
+A4         Extract Auth Code             #
+A5         Get Access Token              #
+A5.1       Return Access/Refresh Token   #
+A6         Save Refresh Token            #
+A7         Get Data                      #
+A7.1       Check Access Token            #
+A7.2       Return Data                   #
+A8         Rest of Business Logic        #
 ````
 
 
