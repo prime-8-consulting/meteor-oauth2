@@ -18,7 +18,7 @@ C1.1       Generate Client ID
 C1.2       Return Client ID               
 C2         Configure Client ID               
 
-A1         Start App                     
+A1         Start App                     # Meteor.startup()
 A1.1       Launch Browser                
 A1.1.1.    Request Login                 
 A1.1.1.1   Create Login Page             
@@ -31,10 +31,10 @@ A3         Intercept Redirect
 A4         Extract Auth Code             
 A5         Get Access Token              
 A5.1       Return Access/Refresh Token   
-A6         Save Refresh Token            
-A7         Get Data                      
-A7.1       Check Access Token           
-A7.2       Return Data  
+A6         Save Refresh Token           
+A7         Request Data                 # GET /api/getUserId
+A7.1       Check Access Token           # oAuth2Server.oauthserver.authorise()
+A7.2       Return Data                  # JsonRoutes.add
 A8         Rest of Business Logic        
 ```
 
