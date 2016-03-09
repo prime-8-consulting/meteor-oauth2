@@ -5,6 +5,8 @@ This is the root repository of several meteor packages that give your applicatio
 Checkout the packages for the package source. The examples will be very helpful in understanding what you can do with these packages.
 
 
+![OAuthWebSequenceWithConfig](https://raw.githubusercontent.com/awatson1978/meteor-oauth2/readme-updates/documentation/OAuthWebSequenceWithConfig.png)
+
 =========================================
 #### OAuth Flow  
 
