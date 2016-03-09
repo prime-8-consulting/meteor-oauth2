@@ -12,11 +12,11 @@ Checkout the packages for the package source. The examples will be very helpful 
 =========================================
 #### OAuth Flow - Step By Step
 
-
-C1        Request Client ID               
-C1.1      Generate Client ID             
-C1.2      Return Client ID               
-C2        Configure Client ID               
+```
+C1         Request Client ID               
+C1.1       Generate Client ID             
+C1.2       Return Client ID               
+C2         Configure Client ID               
 
 A1         Start App                     
 A1.1       Launch Browser                
@@ -33,10 +33,10 @@ A5         Get Access Token
 A5.1       Return Access/Refresh Token   
 A6         Save Refresh Token            
 A7         Get Data                      
-A7.1       [Check Access Token](https://github.com/awatson1978/meteor-oauth2/blob/readme-updates/examples/resourceServer/server/rest.js)            
-A7.2       [Return Data](https://github.com/awatson1978/meteor-oauth2/blob/readme-updates/examples/resourceServer/server/rest.js)                   
+A7.1       Check Access Token           
+A7.2       Return Data
 A8         Rest of Business Logic        
-
+```
 
 
 =========================================
