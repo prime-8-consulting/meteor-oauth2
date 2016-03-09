@@ -16,10 +16,12 @@ Once you have your client setup on the resource owner, you are ready to
 get things running on your application.
 
 #### Add a service configuration
+##### The easy way
 The easiest solution is to use the meteor UI. After starting your application
 goto a page where the login button appear and click on the red configure button
 for MeteorOAuth2Server.
 
+##### The difficult way
 Alternatively, you could manually create the service configuration
 Note: Looking for a better way to handle this. Perhaps using meteor's config files? File an issue with your ideas.
 ```
