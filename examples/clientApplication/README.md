@@ -10,6 +10,6 @@ meteor --port 3200
 After it is started, goto http://localhost:3200 and walk through the steps.
 
 The reason we are using a specific port here is to
-1) Not interfere with your running instance of meteor.
-2) Work well with the resourceServer example as it assumes this application
+ 1. Not interfere with your running instance of meteor.
+ 2. Work well with the resourceServer example as it assumes this application
 will be hosted at localhost:3200
