@@ -7,7 +7,7 @@ package will allow your site to authenticate users on another meteor application
 ### Configuration
 Since every Meteor application is different, there is not a universal approach
 to get your site setup as an oauth client. If you operate the target server,
-you can add a client following the example provided on [this example](https://github.com/prime-8-consulting/meteor-oauth2/blob/master/examples/resourceOwner/server/index.js).
+you can add a client following the example provided on [this example](https://github.com/prime-8-consulting/meteor-oauth2/blob/master/examples/resourceServer/server/index.js).
 
 If you do not operate the target server, your best bet is to contact the site
 operator and provide them with your redirect uri. It will be <your base url>/_oauth/meteor-oauth2-server.
@@ -16,10 +16,12 @@ Once you have your client setup on the resource owner, you are ready to
 get things running on your application.
 
 #### Add a service configuration
+##### The easy way
 The easiest solution is to use the meteor UI. After starting your application
 goto a page where the login button appear and click on the red configure button
 for MeteorOAuth2Server.
 
+##### The difficult way
 Alternatively, you could manually create the service configuration
 Note: Looking for a better way to handle this. Perhaps using meteor's config files? File an issue with your ideas.
 ```
@@ -60,7 +62,7 @@ There is an example meteor application that demonstrates authentication from
 another meteor application.
 https://github.com/prime-8-consulting/meteor-oauth2/tree/master/examples
 
-You will need to run both the resourceOwner (the site that holds the usernames and passwords)
-and the resourceServer (the site that performs the oauth request). There is
+You will need to run both the resourceServer (the site that holds the usernames and passwords)
+and the clientApplication (the site that performs the oauth request). There is
 detailed instructions on how to start both applications. They are already
 configured to work together, so you should have no problem getting things going.
