@@ -13,7 +13,6 @@ Checkout the packages for the package source. The examples will be very helpful 
 #### OAuth Flow - Step By Step
 
 
-````bash
 C1        Request Client ID               
 C1.1      Generate Client ID             
 C1.2      Return Client ID               
@@ -37,7 +36,7 @@ A7         Get Data
 A7.1       [Check Access Token](https://github.com/awatson1978/meteor-oauth2/blob/readme-updates/examples/resourceServer/server/rest.js)            
 A7.2       [Return Data](https://github.com/awatson1978/meteor-oauth2/blob/readme-updates/examples/resourceServer/server/rest.js)                   
 A8         Rest of Business Logic        
-````
+
 
 
 =========================================
