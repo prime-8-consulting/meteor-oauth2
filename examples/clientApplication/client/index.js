@@ -3,8 +3,8 @@ $(document).ready(function() {
         var setCount = 0;
         setCount += prePopulateValues(e, 'configure-login-service-dialog-clientId', 'clientApplication');
         setCount += prePopulateValues(e, 'configure-login-service-dialog-secret', '12345');
-        setCount += prePopulateValues(e, 'configure-login-service-dialog-baseUrl', 'http://localhost:3100');
-        setCount += prePopulateValues(e, 'configure-login-service-dialog-loginUrl', 'http://localhost:3100');
+        setCount += prePopulateValues(e, 'configure-login-service-dialog-baseUrl', 'http://localhost:3200');
+        setCount += prePopulateValues(e, 'configure-login-service-dialog-loginUrl', 'http://localhost:3200');
 
         // a hacky way to make the meteor configure interface make the save button
         // enabled. it only enables if it detects key up events in the input fields.

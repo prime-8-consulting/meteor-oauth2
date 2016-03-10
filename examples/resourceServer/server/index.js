@@ -7,7 +7,7 @@ function initializeClients() {
         {
             clientId: 'clientApplication', // unique identifier.
             active: true, // whether this client is enabled or not.
-            redirectUri: 'http://localhost:3200/_oauth/MeteorOAuth2Server', // provided by the client.
+            redirectUri: 'http://localhost:3100/_oauth/MeteorOAuth2Server', // provided by the client.
             clientSecret: '12345' // in production, this should be a randomly generated value. Random.secret() is a good choice.
         }
     ];

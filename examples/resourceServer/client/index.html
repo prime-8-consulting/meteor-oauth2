@@ -24,7 +24,7 @@
     {{#unless isUrlParamsValid }}
         <p>The URL params are not set in order to authorize an oauth2 token.</p>
         <p>The following link will simulate arriving to this page from another site that wishes to authenticate with oauth2.</p>
-        <a href="/?client_id=resourceServerClient&redirect_uri=http://localhost:3200/_oauth/MeteorOAuth2Server&response_type=code">Simulate proper link.</a>
+        <a href="/?client_id=clientApplication&redirect_uri=http://localhost:3100/_oauth/MeteorOAuth2Server&response_type=code">Simulate proper link.</a>
     {{/unless}}
 
     {{#if isUrlParamsValid}}
