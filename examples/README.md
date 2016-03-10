@@ -1,7 +1,7 @@
 This is our directory of examples.
 
 ## resourceServer
-This is an example of using the meteor-oauth2-server package. If you want to make your meteor 
+This is an example of using the meteor-oauth2-server package. If you want to make your meteor
 application provide oauth services to other site, this should be your reference porint. This
 application is also used as a test application to ensure the meteor-oauth2-server package is
 functioning properly.
