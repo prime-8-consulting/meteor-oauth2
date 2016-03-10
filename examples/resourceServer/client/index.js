@@ -41,6 +41,7 @@ Template.authorize.helpers({
 });
 
 Template.authorize.events({
+  // CONFIG FLOW - Step C1.1
   'click button.addClient': function (){
     var newClient = {
       active: true,
@@ -55,7 +56,7 @@ Template.authorize.events({
   'click button.generateSecret': function (){
     Session.set("generatedSecret", Random.secret());
   },
-    // Step 3.
+    // AUTH FLOW - Step A5.1
     // user clicks the authorize button.
     'click button.authorize': function() {
         console.log('Authorize button clicked.');
@@ -71,7 +72,6 @@ Template.authorize.events({
             function(err, result) {
                 console.log(err, result);
 
-                // Step 4
                 // give the UI something to display.
                 grantResult.set(result);
             }
@@ -82,7 +82,7 @@ Template.authorize.events({
         var result = grantResult.get();
         var urlParams = getUrlParams();
 
-        // Step 5.
+        // AUTH FLOW - Step A5
         // we have an authorization code. Now get a token.
         if (result.success) {
             console.log('POST');
@@ -100,9 +100,10 @@ Template.authorize.events({
                     }
                 },
                 function(err, result) {
+                  // AUTH FLOW - Step A6
                     tokenResult.set(result.data);
 
-                    // Step 6.
+                    // AUTH FLOW - Step A7.
                     // we have an access token. Get the user from the REST service.
                     HTTP.get(
                         Meteor.absoluteUrl('/api/getUserId'),

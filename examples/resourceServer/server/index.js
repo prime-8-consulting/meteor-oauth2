@@ -1,4 +1,5 @@
 /**
+ * AUTH FLOW - C1.1
  * Initialize a default list of allowed clients. The client that is added describes
  * the client that is used in the resourceServer example project.
  */
@@ -26,6 +27,6 @@ function initializeClients() {
     }
 }
 
-// on startup, update/create the allowed clients.
-Meteor.startup(initializeClients);
 
+// On startup, update/create the allowed clients.
+Meteor.startup(initializeClients);
