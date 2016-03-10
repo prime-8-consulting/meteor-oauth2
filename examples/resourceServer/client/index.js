@@ -9,32 +9,52 @@ Template.authorize.onCreated(function() {
     oAuth2Server.subscribeTo.refreshTokens();
 });
 
+
+Session.setDefault("generatedSecret", "12345");
+
 Template.authorize.helpers({
-    urlParams: function() {
-        return getUrlParams();
-    },
-    isUrlParamsValid: function() {
-        var params = getUrlParams();
-        return !!params.client_id && !!params.redirect_uri && !!params.response_type;
-    },
-    grantResult: function() {
-        return grantResult.get();
-    },
-    tokenResult: function() {
-        return tokenResult.get();
-    },
-    getUserIdResult: function() {
-        return getUserIdResult.get();
-    },
-    authCodes: function() {
-        return oAuth2Server.collections.authCode.find({});
-    },
-    refreshTokens: function() {
-        return oAuth2Server.collections.refreshToken.find({});
-    }
+  generatedSecret: function (){
+    return Session.get('generatedSecret');
+  },
+  urlParams: function() {
+      return getUrlParams();
+  },
+  isUrlParamsValid: function() {
+      var params = getUrlParams();
+      return !!params.client_id && !!params.redirect_uri && !!params.response_type;
+  },
+  grantResult: function() {
+      return grantResult.get();
+  },
+  tokenResult: function() {
+      return tokenResult.get();
+  },
+  getUserIdResult: function() {
+      return getUserIdResult.get();
+  },
+  authCodes: function() {
+      return oAuth2Server.collections.authCode.find({});
+  },
+  refreshTokens: function() {
+      return oAuth2Server.collections.refreshToken.find({});
+  }
 });
 
 Template.authorize.events({
+  'click button.addClient': function (){
+    var newClient = {
+      active: true,
+      clientId: $('input[name="clientId"]').val(),
+      redirectUri: $('input[name="redirectUri"]').val(),
+      clientSecret: $('input[name="clientSecret"]').val(),
+      clientName: $('input[name="clientName"]').val(),
+    }
+    console.log('newClient', newClient);
+    Meteor.call("oauth/addclient", newClient);
+  },
+  'click button.generateSecret': function (){
+    Session.set("generatedSecret", Random.secret());
+  },
     // Step 3.
     // user clicks the authorize button.
     'click button.authorize': function() {
