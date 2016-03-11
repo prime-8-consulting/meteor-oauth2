@@ -10,7 +10,7 @@ Template.authorize.onCreated(function() {
 });
 
 
-Session.setDefault("generatedSecret", "12345");
+Session.setDefault('generatedSecret', '12345');
 
 Template.authorize.helpers({
   generatedSecret: function (){
@@ -52,10 +52,10 @@ Template.authorize.events({
     };
 
     //console.log('newClient', newClient);
-    Meteor.call("oauth/addclient", newClient);
+    Meteor.call('oauth/addclient', newClient);
   },
   'click button.generateSecret': function (){
-    Session.set("generatedSecret", Random.secret());
+    Session.set('generatedSecret', Random.secret());
   },
     // AUTH FLOW - Step A5.1
     // user clicks the authorize button.
@@ -91,7 +91,7 @@ Template.authorize.events({
                 Meteor.absoluteUrl('/oauth/token'),
                 {
                     headers: {
-                        "Content-type": "application/x-www-form-urlencoded"
+                        'Content-type': 'application/x-www-form-urlencoded'
                     },
                     params: {
                         grant_type: 'authorization_code',

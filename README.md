@@ -14,7 +14,7 @@ Checkout the packages for the package source. The examples will be very helpful 
 
 ```bash
 C1         Request Client ID               
-C1.1       Generate Client ID            # Meteor.call("oauth/addclient", newClient)
+C1.1       Generate Client ID            # Meteor.call('oauth/addclient', newClient)
 C1.2       Return Client ID               
 C2         Configure Client ID               
 
