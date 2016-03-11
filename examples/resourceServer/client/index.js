@@ -48,9 +48,10 @@ Template.authorize.events({
       clientId: $('input[name="clientId"]').val(),
       redirectUri: $('input[name="redirectUri"]').val(),
       clientSecret: $('input[name="clientSecret"]').val(),
-      clientName: $('input[name="clientName"]').val(),
-    }
-    console.log('newClient', newClient);
+      clientName: $('input[name="clientName"]').val()
+    };
+
+    //console.log('newClient', newClient);
     Meteor.call("oauth/addclient", newClient);
   },
   'click button.generateSecret': function (){
