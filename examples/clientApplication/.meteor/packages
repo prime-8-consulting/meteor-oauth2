@@ -22,3 +22,6 @@ prime8consulting:meteor-oauth2-client
 service-configuration
 accounts-ui
 oauth
+reactive-var
+http
+webapp

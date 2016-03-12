@@ -10,6 +10,52 @@
 <template name="main">
     {{> loginButtons}}
 
-    <p>For the sake of convience while you experiment, you can reset configuration for the ClientApplication.</p>
-    <button class="resetServiceConfiguration">Reset service configuration</button>
+    {{#if getUserAccessToken }}
+        <hr />
+
+        <h2>Test the results</h2>
+        <div class="section">
+            <p>
+                Good news! Your user was authenticated with OAuth2. While the authentication is indication that data
+                is being transferred from the resource service using tokens. You can view the results here.
+            </p>
+
+            <h2>Step A6</h2>
+            <p>accessToken: {{ getUserAccessToken }}</p>
+
+            <button class="testLocalTokens">Test Local Tokens</button>
+
+            {{#if getUserIdResult}}
+                <h3>Step A7 - fetch userId from /api/getUserId</h3>
+                <p>
+                    This step is also performed server-to-server by the client application and is
+                    only done here for testing purposes. Here we are using the newly acquired
+                    access token, we retrieve the userId associated with the access token. These two
+                    should match.
+                </p>
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <tr>
+                        <td>expected id</td>
+                        <td>{{ getUserOAuth2Id }}</td>
+                        <td>This was given to us by the oauth2 service during login.</td>
+                    </tr>
+                    <tr>
+                        <td>actual id</td>
+                        <td>{{ getUserIdResult }}</td>
+                        <td>This was retrieved via REST using the access token.</td>
+                    </tr>
+                </table>
+            {{/if}}
+        </div>
+    {{/if}}
+
+    <hr />
+    <h2>Utilities</h2>
+    <div class="section">
+        <p>
+            For the sake of convenience while you experiment, you can reset configuration for the ClientApplication.
+            This will make the login button you see above goto it's unconfigured state.
+        </p>
+        <button class="resetServiceConfiguration">Reset service configuration</button>
+    </div>
 </template>

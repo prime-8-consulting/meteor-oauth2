@@ -7,7 +7,7 @@ Checkout the packages for the package source. The examples will be very helpful 
 =========================================
 #### OAuth Flow - Diagram
 
-![OAuthWebSequenceWithConfig](https://raw.githubusercontent.com/awatson1978/meteor-oauth2/readme-updates/documentation/OAuthWebSequenceWithConfig.png)
+![OAuthWebSequenceWithConfig](https://github.com/prime-8-consulting/meteor-oauth2/blob/master/documentation/OAuthWebSequenceWithConfig.png)
 
 =========================================
 #### OAuth Flow - Step By Step
