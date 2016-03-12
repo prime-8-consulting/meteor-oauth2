@@ -12,7 +12,7 @@
  */
 JsonRoutes.Middleware.use(
     '/api/*',
-    oAuth2Server.oauthserver.authorise()
+    oAuth2Server.oauthserver.authorise()   // OAUTH FLOW - A7.1
 );
 
 /**

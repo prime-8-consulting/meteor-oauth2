@@ -19,21 +19,21 @@ MeteorOAuth2.requestCredential = function (options, credentialRequestCompleteCal
     if (!config) {
         credentialRequestCompleteCallback
         && credentialRequestCompleteCallback(
-            ServiceConfiguration.ConfigError("Service not configured")
+            ServiceConfiguration.ConfigError('Service not configured')
         );
     }
 
     if (!config.baseUrl) {
         credentialRequestCompleteCallback
         && credentialRequestCompleteCallback(
-            ServiceConfiguration.ConfigError("Service found but it does not have a baseUrl configured.")
+            ServiceConfiguration.ConfigError('Service found but it does not have a baseUrl configured.')
         );
     }
 
     if (!config.loginUrl) {
         credentialRequestCompleteCallback
         && credentialRequestCompleteCallback(
-            ServiceConfiguration.ConfigError("Service found but it does not have a loginUrl configured.")
+            ServiceConfiguration.ConfigError('Service found but it does not have a loginUrl configured.')
         );
     }
 

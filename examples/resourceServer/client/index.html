@@ -1,26 +1,51 @@
 <head>
-    <title>resourceServer</title>
+    <title>ResourceServer</title>
 </head>
 
 <body>
-    <h1>Welcome to resourceServer!</h1>
+    <h1>Welcome to ResourceServer!</h1>
 
     {{> authorize}}
 </body>
 
 <template name="authorize">
+    <p>
+      This <code>meteor-oauth2-server</code> package currently provides functionality for both the AuthenticationServer and the ResourceServer.  This functionality may be split into separate packages and/or examples in the future; however, for the time being, AuthenticationServer and ResourceServer are the same application.
+    </p>
     <p>The following steps represent the steps that are necessary to properly negotiate an oauth2 token. While these
-    steps work on this site, this site is for testing and demo purposes only. Do not use this configuration in production.</p>
-    <p>You'll know if everything is working if you can get to Step 6 and the user ids match.</p>
+    steps work on this site, this site is for testing and demo purposes only. Do not use this configuration in production.  You'll know if everything is working if you can get to Step 6 and the user ids match.</p>
     <hr />
 
-    <h2>Step 0 - Add an an authorized client</h2>
+    <h2>Step C1.1 - Generate Client ID & Secret</h2>
     <p>
-        Look into server/index.js for how to add a client. This client must exist, be active, and it's redirectUri
-        must match the redirect_uri provided in the URL. If not, the creation of the authorization code in step 4 will fail.
+      The AuthenticationServer & ResourceServer need to know about the ClientApplication that's going to authenticate to it.  So the first step in configuring the ResourceServer is to register a Client ID and Client Secret.  This process can be automated and <a href="server/index.js">default configurations added at startup</a>.  Alternatively, adding a client may be an action that a customer performs.   The following form illustrates what might be provided to a customer who is self-configuring a client application via an API Key Generation page.
     </p>
 
-    <h2>Step 1 - Goto URL with appropriate params.</h2>
+    <label for="clientName">Client Name</label><br>
+    <input type="text" id="clientNameInput" name="clientName" value="">
+    <br><br>
+
+    <label for="clientId">Client ID</label><br>
+    <input type="text" id="clientIdInput" name="clientId" value="">
+    <br><br>
+
+    <label for="redirectUri">Redirect URI</label> <br>
+    <input type="text" id="redirectUriInput" name="redirectUri" value=""> * Provided in step C2.
+    <br><br>
+
+    <label for="clientSecret">Client Secret</label><br>
+    <input type="text" id="clientSecretInput" name="clientSecret" value="{{generatedSecret}}" placeholder="12345"><button class="generateSecret">Generate Secret</button>
+
+    <br><br>
+    <button class="addClient">Add Client</button>
+
+    <p>
+      However the record is created, the server is going to look for a client that exists, is active, and it's redirectUri must match the redirect_uri provided in the URL.  If not, the creation of the authorization code in step 4 will fail.
+    </p>
+    <hr>
+
+
+    <h2>Step A1.1.1.1 - Create Login Page</h2>
     {{#unless isUrlParamsValid }}
         <p>The URL params are not set in order to authorize an oauth2 token.</p>
         <p>The following link will simulate arriving to this page from another site that wishes to authenticate with oauth2.</p>
@@ -29,22 +54,23 @@
 
     {{#if isUrlParamsValid}}
         <table border="1" cellpadding="5" cellspacing="0">
-            <tr>
-                <td>clint_id</td>
-                <td>{{ urlParams.client_id }}</td>
-            </tr>
-            <tr>
-                <td>redirect_uri</td>
-                <td>{{ urlParams.redirect_uri }}</td>
-            </tr>
-            <tr>
-                <td>response_type</td>
-                <td>{{ urlParams.response_type }}</td>
-            </tr>
+          <tr>
+            <td>clint_id</td>
+            <td>{{ urlParams.client_id }}</td>
+          </tr>
+          <tr>
+            <td>redirect_uri</td>
+            <td>{{ urlParams.redirect_uri }}</td>
+          </tr>
+          <tr>
+            <td>response_type</td>
+            <td>{{ urlParams.response_type }}</td>
+          </tr>
         </table>
 
 
-        <h2>Step 2 - Authenticate user</h2>
+        <hr />
+        <h2>Step A2.1.1 - Authenticate User</h2>
         {{#unless currentUser}}
             <p>User is not authenticated. This should be done.</p>
             {{> loginButtons}}
@@ -54,12 +80,13 @@
             <p>User is authenticated.</p>
             {{> loginButtons}}
 
-            <h2>Step 3 - Authorize the request.</h2>
+            <hr />
+            <h2>Step A5.1 - Generate Access Tokens</h2>
             <p>This is the button a user would click to allow {{ urlParams.client_id }} access to your email address.. etc.</p>
             <button class="authorize">Authorize</button>
 
             {{#if grantResult}}
-                <h2>Step 4 - Authorize Grant Result</h2>
+                <h2>Step A5.2 - Return Access Tokens</h2>
                 <p>Grant was run with the given params. Normally, the user would be redirected to the redirect URI.</p>
                 <table border="1" cellpadding="5" cellspacing="0">
                     <tr>
@@ -85,7 +112,8 @@
                 <button class="testLocalTokens">Test Local Tokens</button>
 
                 {{#if tokenResult}}
-                    <h2>Step 5 - /oauth/token result</h2>
+                    <hr />
+                    <h2>Step A6 - Save Refresh Token</h2>
                     <p>
                         Using the authorizationCode, we post back to the server to request a token. This is the token you'd use to run REST calls and alike.
                         This step should be performed by the server we redirect to in step 2. So there is server to server communication. This example is only
@@ -106,7 +134,8 @@
                         </tr>
                     </table>
 
-                    <h2>Step 6 - fetch userId from /api/getUserId</h2>
+                    <hr />
+                    <h2>Step A7 - fetch userId from /api/getUserId</h2>
                     <p>
                         Using the newly acquired access token, we retrieve the userId associated with the access token.
                     </p>
@@ -137,6 +166,7 @@
         {{/each}}
     </ul>
 
+    <hr />
     <h2>Existing refresh tokens</h2>
     <p>This shows a list of all the existing refresh tokens.</p>
     <ul>

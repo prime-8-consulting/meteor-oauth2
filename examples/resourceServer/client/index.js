@@ -9,33 +9,55 @@ Template.authorize.onCreated(function() {
     oAuth2Server.subscribeTo.refreshTokens();
 });
 
+
+Session.setDefault('generatedSecret', '12345');
+
 Template.authorize.helpers({
-    urlParams: function() {
-        return getUrlParams();
-    },
-    isUrlParamsValid: function() {
-        var params = getUrlParams();
-        return !!params.client_id && !!params.redirect_uri && !!params.response_type;
-    },
-    grantResult: function() {
-        return grantResult.get();
-    },
-    tokenResult: function() {
-        return tokenResult.get();
-    },
-    getUserIdResult: function() {
-        return getUserIdResult.get();
-    },
-    authCodes: function() {
-        return oAuth2Server.collections.authCode.find({});
-    },
-    refreshTokens: function() {
-        return oAuth2Server.collections.refreshToken.find({});
-    }
+  generatedSecret: function (){
+    return Session.get('generatedSecret');
+  },
+  urlParams: function() {
+      return getUrlParams();
+  },
+  isUrlParamsValid: function() {
+      var params = getUrlParams();
+      return !!params.client_id && !!params.redirect_uri && !!params.response_type;
+  },
+  grantResult: function() {
+      return grantResult.get();
+  },
+  tokenResult: function() {
+      return tokenResult.get();
+  },
+  getUserIdResult: function() {
+      return getUserIdResult.get();
+  },
+  authCodes: function() {
+      return oAuth2Server.collections.authCode.find({});
+  },
+  refreshTokens: function() {
+      return oAuth2Server.collections.refreshToken.find({});
+  }
 });
 
 Template.authorize.events({
-    // Step 3.
+  // CONFIG FLOW - Step C1.1
+  'click button.addClient': function (){
+    var newClient = {
+      active: true,
+      clientId: $('input[name="clientId"]').val(),
+      redirectUri: $('input[name="redirectUri"]').val(),
+      clientSecret: $('input[name="clientSecret"]').val(),
+      clientName: $('input[name="clientName"]').val()
+    };
+
+    //console.log('newClient', newClient);
+    Meteor.call('oauth/addclient', newClient);
+  },
+  'click button.generateSecret': function (){
+    Session.set('generatedSecret', Random.secret());
+  },
+    // AUTH FLOW - Step A5.1
     // user clicks the authorize button.
     'click button.authorize': function() {
         console.log('Authorize button clicked.');
@@ -51,7 +73,6 @@ Template.authorize.events({
             function(err, result) {
                 console.log(err, result);
 
-                // Step 4
                 // give the UI something to display.
                 grantResult.set(result);
             }
@@ -62,7 +83,7 @@ Template.authorize.events({
         var result = grantResult.get();
         var urlParams = getUrlParams();
 
-        // Step 5.
+        // AUTH FLOW - Step A5
         // we have an authorization code. Now get a token.
         if (result.success) {
             console.log('POST');
@@ -70,7 +91,7 @@ Template.authorize.events({
                 Meteor.absoluteUrl('/oauth/token'),
                 {
                     headers: {
-                        "Content-type": "application/x-www-form-urlencoded"
+                        'Content-type': 'application/x-www-form-urlencoded'
                     },
                     params: {
                         grant_type: 'authorization_code',
@@ -80,9 +101,10 @@ Template.authorize.events({
                     }
                 },
                 function(err, result) {
+                  // AUTH FLOW - Step A6
                     tokenResult.set(result.data);
 
-                    // Step 6.
+                    // AUTH FLOW - Step A7.
                     // we have an access token. Get the user from the REST service.
                     HTTP.get(
                         Meteor.absoluteUrl('/api/getUserId'),
