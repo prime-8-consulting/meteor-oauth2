@@ -1,6 +1,6 @@
 Package.describe({
     name: 'prime8consulting:meteor-oauth2-server',
-    version: '0.0.2',
+    version: '0.0.3',
     summary: 'Add oauth2 server support to your application.',
     git: 'https://github.com/prime-8-consulting/meteor-oauth2/packages/meteor-oauth2-server'
 });
